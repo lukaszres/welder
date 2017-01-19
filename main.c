@@ -13,7 +13,7 @@ void weld(unsigned int ms);
 void wait(unsigned int ms);
 
 volatile int a = 3;
-volatile char flaga = 0, flaga1 = 0;
+volatile char flag = 0, flag1 = 0;
 
 int main(void) {
 	DDRC |= (1 << PC5); //ustawienie PC5 jako wyjscie
@@ -30,12 +30,12 @@ int main(void) {
 	while (1) {
 		blink(a);
 
-		if (flaga) {
+		if (flag) {
 			if (a < 5)
 				a++;
 			else
 				a = 1;
-			flaga = 0;
+			flag = 0;
 		}
 	}
 }
@@ -58,17 +58,17 @@ void weld(unsigned int ms) {
 }
 void wait(unsigned int ms) {
 	for (unsigned int i = 0; i < ms; i++) {
-		if (flaga1) {
+		if (flag1) {
 			weld(a);
-			flaga1 = 0;
+			flag1 = 0;
 		}
 		_delay_ms(1);
 	}
-	flaga1 = 0;
+	flag1 = 0;
 }
 ISR(INT0_vect) {
-	flaga = 1;
+	flag = 1;
 }
 ISR (INT1_vect) {
-	flaga1 = 1;
+	flag1 = 1;
 }
