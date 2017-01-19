@@ -23,16 +23,15 @@ int main(void) {
 	MCUCR |= (1 << ISC01);
 	MCUCR |= (1 << ISC11);
 	MCUCR &= ~(1 << ISC10); //Narastaj�ce zbocze na INT1 generuje przerwanie
-	GICR |= (1 << INT0); //w��czenie przerwania INT0
+	GICR |= (1 << INT0); //włączenie przerwania INT0
 	GICR |= (1 << INT1);
 	sei();
-	//globalne w��czenie przerwa�
 
 	while (1) {
 		blink(a);
 
 		if (flaga) {
-			if (a < 5) //dop�ki a jest mniejsze od 3
+			if (a < 5)
 				a++;
 			else
 				a = 1;
@@ -51,10 +50,10 @@ void blink(unsigned int ms) {
 	wait(1000);
 }
 void weld(unsigned int ms) {
-	PORTC |= (1 << PC5); //za�wiecenie LED�w
+	PORTC |= (1 << PC5); //zaświecenie LEDów
 	for (unsigned int i = 0; i < ms; i++)
 		_delay_ms(10);
-	PORTC &= ~(1 << PC5); //zgaszenie  LED�w
+	PORTC &= ~(1 << PC5); //zgaszenie  LEDów
 	_delay_ms(2000);
 }
 void wait(unsigned int ms) {
